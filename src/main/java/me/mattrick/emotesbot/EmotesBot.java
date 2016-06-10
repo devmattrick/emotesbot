@@ -2,6 +2,7 @@ package me.mattrick.emotesbot;
 
 import lombok.Getter;
 import me.mattrick.emotesbot.listener.InlineListener;
+import me.mattrick.emotesbot.updater.Updater;
 import pro.zackpollard.telegrambot.api.TelegramBot;
 
 import java.io.BufferedReader;
@@ -19,14 +20,22 @@ public class EmotesBot {
     @Getter
     private InlineListener listener;
 
+    @Getter
+    private Updater updater;
+
     public EmotesBot(String apiKey) {
+        //Log in to Telegram API
         bot = TelegramBot.login(apiKey);
+
+        //Register listener and wait for updates
         listener = new InlineListener(this, loadEmotes());
         bot.startUpdates(false);
 
-        while (true){
-
-        }
+        //Begin auto updater
+        /*
+        updater = new Updater(this);
+        updater.run();
+        */
     }
 
     private Map<String, String> loadEmotes() {
