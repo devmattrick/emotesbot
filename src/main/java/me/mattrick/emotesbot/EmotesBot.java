@@ -5,10 +5,7 @@ import me.mattrick.emotesbot.listener.InlineListener;
 import me.mattrick.emotesbot.updater.Updater;
 import pro.zackpollard.telegrambot.api.TelegramBot;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,19 +38,24 @@ public class EmotesBot {
     private Map<String, String> loadEmotes() {
         Map<String, String> emotes = new HashMap<>();
 
-        File emotesFile = new File(getClass().getClassLoader().getResource("emotes.txt").getFile());
-        try(BufferedReader br = new BufferedReader(new FileReader(emotesFile))) {
-            for(String line; (line = br.readLine()) != null; ) {
-                String key = line.substring(0, line.indexOf(":"));
-                String value = line.substring(line.indexOf(":") + 1);
-                System.out.println("Found emoticon: " + key + " : " + value);
-                emotes.put(key, value);
+        InputStream inputStream = EmotesBot.class.getResourceAsStream("/emotes.txt");
+        if (inputStream != null) {
+            InputStreamReader streamReader = new InputStreamReader(inputStream);
+            try (BufferedReader br = new BufferedReader(streamReader)) {
+                for (String line; (line = br.readLine()) != null; ) {
+                    String key = line.substring(0, line.indexOf(":"));
+                    String value = line.substring(line.indexOf(":") + 1);
+                    System.out.println("Found emoticon: " + key + " : " + value);
+                    emotes.put(key, value);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            return emotes;
         }
 
-        return emotes;
+        return null;
     }
 
     public static void main(String... args) {
