@@ -20,7 +20,7 @@ public class InlineListener implements Listener {
     public InlineListener(EmotesBot bot, Map<String, String> emotes) {
         this.bot = bot;
         this.emotes = emotes;
-        bot.getBot().getEventsManager().register(this);
+        this.bot.getBot().getEventsManager().register(this);
     }
 
     @Override
