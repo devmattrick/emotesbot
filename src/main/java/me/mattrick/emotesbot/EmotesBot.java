@@ -21,10 +21,10 @@ public class EmotesBot {
     private Updater updater;
 
     public EmotesBot(String apiKey) {
-        //Log in to Telegram API
+        // Log in to Telegram API
         bot = TelegramBot.login(apiKey);
 
-        //Register listener and wait for updates
+        // Register listener and wait for updates
         listener = new InlineListener(this, loadEmotes());
         bot.startUpdates(false);
 
