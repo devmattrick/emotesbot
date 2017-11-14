@@ -59,12 +59,17 @@ public class EmotesBot {
     }
 
     public static void main(String... args) {
-        if (args.length >= 1) {
-            new EmotesBot(args[0]);
+        String token = System.getenv("BOT_TOKEN");
+        if (token == null || token.equals("")) {
+            if (args.length >= 1) {
+                token = args[0];
+            }
+            else {
+                System.out.println("Auth token not found, shutting down...");
+                System.exit(1);
+            }
         }
-        else {
-            System.out.println("Auth token not found, shutting down...");
-        }
-    }
 
+        new EmotesBot(args[0]);
+    }
 }
