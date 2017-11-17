@@ -70,6 +70,6 @@ public class EmotesBot {
             }
         }
 
-        new EmotesBot(args[0]);
+        new EmotesBot(token);
     }
 }
