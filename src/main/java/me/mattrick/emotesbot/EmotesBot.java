@@ -1,61 +1,41 @@
 package me.mattrick.emotesbot;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 import me.mattrick.emotesbot.listener.InlineListener;
-import me.mattrick.emotesbot.updater.Updater;
-import pro.zackpollard.telegrambot.api.TelegramBot;
 
-import java.io.*;
-import java.util.HashMap;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.Map;
 
 public class EmotesBot {
 
     @Getter
-    private final TelegramBot bot;
-
-    @Getter
     private InlineListener listener;
-
-    @Getter
-    private Updater updater;
 
     public EmotesBot(String apiKey) {
         //Log in to Telegram API
-        bot = TelegramBot.login(apiKey);
 
         //Register listener and wait for updates
-        listener = new InlineListener(this, loadEmotes());
-        bot.startUpdates(false);
-
-        //Begin auto updater
-        /*
-        updater = new Updater(this);
-        updater.run();
-        */
+        listener = new InlineListener(apiKey, loadEmotes());
     }
 
     private Map<String, String> loadEmotes() {
-        Map<String, String> emotes = new HashMap<>();
-
-        InputStream inputStream = EmotesBot.class.getResourceAsStream("/emotes.txt");
-        if (inputStream != null) {
-            InputStreamReader streamReader = new InputStreamReader(inputStream);
-            try (BufferedReader br = new BufferedReader(streamReader)) {
-                for (String line; (line = br.readLine()) != null; ) {
-                    String key = line.substring(0, line.indexOf(":"));
-                    String value = line.substring(line.indexOf(":") + 1);
-                    System.out.println("Found emoticon: " + key + " : " + value);
-                    emotes.put(key, value);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return emotes;
+        Gson gson = new Gson();
+        InputStream inputStream = EmotesBot.class.getResourceAsStream("/emotes.json");
+        if (inputStream == null) {
+            System.out.println("No emotes found");
+            System.exit(1);
+            return null;
         }
+        InputStreamReader reader = new InputStreamReader(inputStream);
 
-        return null;
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
+
+        return gson.fromJson(reader, type);
     }
 
     public static void main(String... args) {
