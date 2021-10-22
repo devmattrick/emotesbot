@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/lithammer/fuzzysearch/fuzzy"
+	"github.com/sahilm/fuzzy"
 )
 
 type Emote struct {
@@ -31,11 +31,11 @@ func init() {
 }
 
 func Find(query string) []Emote {
-	ranks := fuzzy.RankFind(query, joinedKeywords)
+	matches := fuzzy.Find(query, joinedKeywords)
 
 	result := []Emote{}
-	for _, rank := range ranks {
-		result = append(result, Emotes[rank.OriginalIndex])
+	for _, match := range matches {
+		result = append(result, Emotes[match.Index])
 	}
 
 	return result
