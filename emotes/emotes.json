@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Lenny Face",
+        "value": "( ͡° ͜ʖ ͡°)",
+        "keywords": ["lenny", "face", "creepy"]
+    },
+    {
+        "name": "idk",
+        "value": "¯\\_(ツ)_/¯",
+        "keywords": ["idk", "shrug", "meh"]
+    },
+    {
+        "name": "Look of Disapproval",
+        "value": "ಠ_ಠ",
+        "keywords": ["look", "disapproval", "angry", "no", "stop"]
+    },
+    {
+        "name": "Table Flip",
+        "value": "(╯°□°）╯︵ ┻━┻",
+        "keywords": ["table", "flip", "angry", "rage"]
+    },
+    {
+        "name": "Point Left",
+        "value": "☜(ﾟヮﾟ☜)",
+        "keywords": ["point", "left", "happy"]
+    },
+    {
+        "name": "Point Right",
+        "value": "(☞ﾟヮﾟ)☞",
+        "keywords": ["point", "right", "happy"]
+    },
+    {
+        "name": "Sunglasses",
+        "value": "(⌐■_■)",
+        "keywords": ["sunglasses", "cool", "put", "on"]
+    },
+    {
+        "name": "Happy Walk",
+        "value": "ᕕ( ՞ ᗜ ՞ )ᕗ",
+        "keywords": ["happy", "walk", "joy", "don't", "stop", "me", "now"]
+    }
+]

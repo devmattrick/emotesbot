@@ -1,5 +1,2 @@
-# Rust
-/target
-
-# .env file
+# .env files
 .env
