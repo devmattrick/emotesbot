@@ -21,7 +21,7 @@ func main() {
 func run() error {
 	// Load .env file
 	err := godotenv.Load()
-	if err != nil {
+	if err != nil && !os.IsNotExist(err) {
 		return err
 	}
 
