@@ -13,7 +13,11 @@ import (
 
 func main() {
 	if err := run(); err != nil {
-		log.Fatal().Err(err).Send()
+		log.
+			Fatal().
+			Str("event", "error").
+			Err(err).
+			Msg("A fatal error occured")
 		os.Exit(1)
 	}
 }
@@ -21,7 +25,7 @@ func main() {
 func run() error {
 	// Load .env file
 	err := godotenv.Load()
-	if err != nil {
+	if err != nil && !os.IsNotExist(err) {
 		return err
 	}
 
@@ -39,7 +43,7 @@ func run() error {
 		log.Error().
 			Err(e).
 			Str("event", "error").
-			Msg("Telegram Bot API error occurred")
+			Msg("A Telegram Bot API error occurred")
 	}
 
 	b.Handle(tb.OnQuery, handler.InlineQuery)
